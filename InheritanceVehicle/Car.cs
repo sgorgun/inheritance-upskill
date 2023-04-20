@@ -43,10 +43,7 @@
         /// Gets the name of the car.
         /// </summary>
         /// <returns>The name of the car.</returns>
-        public string GetCarName()
-        {
-            return this.Name;
-        }
+        public string GetCarName() => this.Name;
 
         /// <summary>
         /// Starts the car.
