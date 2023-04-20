@@ -109,5 +109,118 @@ namespace InheritanceVehicle.Tests
                 carName,
                 $"'{getNameMethod.Name}' method does NOT return correct value or '{setNameMethod.Name}' method does NOT change car name correctly.");
         }
+
+        [Test]
+        public void TestCarStart()
+        {
+            // Arrange
+            Car car = new Car("TestCar", 100);
+
+            // Act
+            car.CarStart();
+
+            // Assert
+            Assert.IsTrue(car.IsStarted, "Car should be started.");
+        }
+
+        [Test]
+        public void TestCarStop()
+        {
+            // Arrange
+            Car car = new Car("TestCar", 100);
+            car.CarStart();
+
+            // Act
+            car.CarStop();
+
+            // Assert
+            Assert.IsFalse(car.IsStarted, "Car should be stopped.");
+            Assert.IsFalse(car.IsDriving, "Car should not be driving.");
+            Assert.AreEqual(0, car.Speed, "Car speed should be 0.");
+        }
+
+        [Test]
+        public void TestCarDrive_WhenCarStarted()
+        {
+            // Arrange
+            Car car = new Car("TestCar", 100);
+            car.CarStart();
+
+            // Act
+            car.CarDrive();
+
+            // Assert
+            Assert.IsTrue(car.IsDriving, "Car should be driving.");
+        }
+
+        [Test]
+        public void TestCarDrive_WhenCarNotStarted()
+        {
+            // Arrange
+            Car car = new Car("TestCar", 100);
+
+            // Act
+            car.CarDrive();
+
+            // Assert
+            Assert.IsFalse(car.IsDriving, "Car should not be driving.");
+        }
+
+        [Test]
+        public void TestCarAccelerate_WhenCarStartedAndDriving()
+        {
+            // Arrange
+            Car car = new Car("TestCar", 100);
+            car.CarStart();
+            car.CarDrive();
+
+            // Act
+            car.CarAccelerate();
+
+            // Assert
+            Assert.IsTrue(car.Speed > 0, "Car speed should be greater than 0.");
+        }
+
+        [Test]
+        public void TestCarAccelerate_WhenCarNotStarted()
+        {
+            // Arrange
+            Car car = new Car("TestCar", 100);
+
+            // Act
+            car.CarAccelerate();
+
+            // Assert
+            Assert.AreEqual(0, car.Speed, "Car speed should be 0.");
+        }
+
+        [Test]
+        public void TestCarDecelerate_WhenCarStartedAndDriving()
+        {
+            // Arrange
+            Car car = new Car("TestCar", 100);
+            car.CarStart();
+            car.CarDrive();
+            car.CarAccelerate();
+
+            // Act
+            car.CarDecelerate();
+
+            // Assert
+            Assert.IsTrue(car.Speed >= 0, "Car speed should be greater than or equal to 0.");
+        }
+
+        [Test]
+        public void TestCarDecelerate_WhenCarNotStarted()
+        {
+            // Arrange
+            Car car = new Car("TestCar", 100);
+
+            // Act
+            car.CarDecelerate();
+
+            // Assert
+            Assert.AreEqual(0, car.Speed, "Car speed should be 0.");
+        }
     }
 }
